@@ -1,4 +1,4 @@
-package vn.poly.sof302.duongnv21.department;
+package vn.poly.sof302.duongnv21.department.service;
 
 import java.util.List;
 

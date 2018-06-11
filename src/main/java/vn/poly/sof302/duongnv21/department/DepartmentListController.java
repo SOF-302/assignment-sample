@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import vn.poly.sof302.duongnv21.common.bases.BaseController;
+import vn.poly.sof302.duongnv21.department.service.DepartmentService;
+
 /**
  * Show list departments with search and pagaing
  * 
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/department")
-public class DepartmentListController {
+public class DepartmentListController extends BaseController {
 
     /*=====================================================================================================
      *===== AUTOWIRED PROPERTIES                                                                      =====

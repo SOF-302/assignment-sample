@@ -1,4 +1,4 @@
-package vn.poly.sof302.duongnv21.department;
+package vn.poly.sof302.duongnv21.department.repositories;
 
 import java.util.List;
 
@@ -12,5 +12,15 @@ import vn.poly.sof302.duongnv21.common.entities.Department;
  */
 public interface DepartmentRepository {
 
+    /**
+     * Get list department
+     * 
+     * @param code
+     * @param name
+     * @param offset
+     * @param limit
+     * 
+     * @return
+     */
     List<Department> selectList(String code, String name, int offset, int limit);
 }

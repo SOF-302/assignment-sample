@@ -1,4 +1,4 @@
-package vn.poly.sof302.duongnv21.department.impl;
+package vn.poly.sof302.duongnv21.department.service.impl;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import vn.poly.sof302.duongnv21.common.bases.BaseService;
 import vn.poly.sof302.duongnv21.common.entities.Department;
-import vn.poly.sof302.duongnv21.department.DepartmentRepository;
-import vn.poly.sof302.duongnv21.department.DepartmentService;
+import vn.poly.sof302.duongnv21.department.repositories.DepartmentRepository;
+import vn.poly.sof302.duongnv21.department.service.DepartmentService;
 
 /**
  * Deparment service implement
