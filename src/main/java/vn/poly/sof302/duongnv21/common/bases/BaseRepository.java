@@ -56,6 +56,28 @@ public class BaseRepository implements BaseRepositoryInterface {
         return sessionFactory.getCurrentSession();
     }
 
+    /**
+     * insert new entity
+     * 
+     * @param entity
+     * 
+     * @return Inserted entity
+     */
+    protected Object insert(Object entity) {
+        return this.getCurrentSession().save(entity);
+    }
+
+    /**
+     * insert new entity
+     * 
+     * @param entity
+     * 
+     * @return Inserted entity
+     */
+    protected Object update(Object entity) {
+        return this.getCurrentSession().save(entity);
+    }
+
     /*================================================================================================================
      *===== PUBLIC METHOD                                                                                        =====
      *================================================================================================================*/

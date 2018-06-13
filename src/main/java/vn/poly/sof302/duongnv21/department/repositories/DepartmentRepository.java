@@ -23,4 +23,31 @@ public interface DepartmentRepository {
      * @return
      */
     List<Department> selectList(String code, String name, int offset, int limit);
+
+    /**
+     * Get detail department
+     * 
+     * @param id
+     * 
+     * @return
+     */
+    Department selectOne(Long id);
+
+    /**
+     * Create new object
+     * 
+     * @param department
+     * 
+     * @return Inserted entity id
+     */
+    Long insert(Department department);
+
+    /**
+     * Update existed object
+     * 
+     * @param department
+     * 
+     * @return Updated entity id
+     */
+    Long update(Department department);
 }

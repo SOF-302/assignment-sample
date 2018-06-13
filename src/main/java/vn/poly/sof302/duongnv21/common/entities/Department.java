@@ -29,7 +29,7 @@ public class Department {
      * DUONGNV21_DEPARTMENT.ID
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 

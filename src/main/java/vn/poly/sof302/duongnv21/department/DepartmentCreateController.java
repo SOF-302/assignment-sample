@@ -1,12 +1,16 @@
 package vn.poly.sof302.duongnv21.department;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.poly.sof302.duongnv21.common.utils.DataTransformUtil;
+import vn.poly.sof302.duongnv21.department.dto.DepartmentDto;
 import vn.poly.sof302.duongnv21.department.form.DepartmentCreateForm;
+import vn.poly.sof302.duongnv21.department.service.DepartmentService;
 
 /**
  * Create new department
@@ -16,6 +20,17 @@ import vn.poly.sof302.duongnv21.department.form.DepartmentCreateForm;
 @Controller
 @RequestMapping("/department")
 public class DepartmentCreateController {
+
+    /*=====================================================================================================
+     *===== AUTOWIRED PROPERTIES                                                                      =====
+     *=====================================================================================================*/
+
+    @Autowired
+    DepartmentService departmentService;
+
+    /*=====================================================================================================
+     *===== MAPPING METHOD                                                                            =====
+     *=====================================================================================================*/
 
     /**
      * Show input form
@@ -39,6 +54,15 @@ public class DepartmentCreateController {
      */
     @PostMapping("/create")
     public String submit(ModelMap model, DepartmentCreateForm form) {
+
+        // Validate input parameters
+        // TODO
+
+        // Cast form dto
+        DepartmentDto departmentDto = (DepartmentDto) DataTransformUtil.transform(form, DepartmentDto.class);
+
+        // Call service to insert new department
+        departmentService.create(departmentDto);
 
         return "redirect:/department";
     }

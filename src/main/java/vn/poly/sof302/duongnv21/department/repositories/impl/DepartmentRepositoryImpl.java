@@ -24,4 +24,19 @@ public class DepartmentRepositoryImpl extends BaseRepository implements Departme
         return this.getCurrentSession().createQuery("from Department").list();
     }
 
+    @Override
+    public Department selectOne(Long id) {
+        return this.getCurrentSession().get(Department.class, id);
+    }
+
+    @Override
+    public Long insert(Department department) {
+        return (Long) super.insert(department);
+    }
+
+    @Override
+    public Long update(Department department) {
+        return (Long) super.update(department);
+    }
+
 }
