@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.poly.sof302.duongnv21.common.bases.BaseController;
+import vn.poly.sof302.duongnv21.common.dto.ListDataDto;
+import vn.poly.sof302.duongnv21.department.dto.DepartmentDto;
+import vn.poly.sof302.duongnv21.department.form.DepartmentSearchForm;
 import vn.poly.sof302.duongnv21.department.service.DepartmentService;
 
 /**
@@ -40,8 +43,19 @@ public class DepartmentListController extends BaseController {
                         @RequestParam(required = false) String name,
                         @RequestParam(defaultValue = "1") Long pn,
                         ModelMap model) {
-        
-        model.addAttribute("listDepartments", departmentService.list(code, name, pn));
+
+        // Add search form data
+        DepartmentSearchForm form = new DepartmentSearchForm();
+        form.setCode(code);
+        form.setName(name);
+        model.addAttribute("departmentSearchForm", form);
+
+        // Get list data with paging
+        ListDataDto<DepartmentDto> ListDataDto = departmentService.list(code, name, pn);
+
+        // Add list data
+        model.addAttribute("listDepartments", ListDataDto.getList());
+        model.addAttribute("paging", ListDataDto.getPaging());
 
         return "/department/index";
     }

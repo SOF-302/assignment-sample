@@ -13,6 +13,16 @@ import vn.poly.sof302.duongnv21.common.entities.Department;
 public interface DepartmentRepository {
 
     /**
+     * Count list department
+     * 
+     * @param code
+     * @param name
+     * 
+     * @return
+     */
+    Long selectCount(String code, String name);
+
+    /**
      * Get list department
      * 
      * @param code

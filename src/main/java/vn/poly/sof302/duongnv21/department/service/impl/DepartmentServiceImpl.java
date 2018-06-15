@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.poly.sof302.duongnv21.common.bases.BaseService;
+import vn.poly.sof302.duongnv21.common.dto.ListDataDto;
+import vn.poly.sof302.duongnv21.common.dto.ListPagingDto;
 import vn.poly.sof302.duongnv21.common.entities.Department;
 import vn.poly.sof302.duongnv21.common.utils.DataTransformUtil;
 import vn.poly.sof302.duongnv21.department.dto.DepartmentDto;
@@ -36,18 +38,27 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
      *=====================================================================================================*/
 
     @Override
-    public List<DepartmentDto> list(String code, String name, Long pn) {
+    public ListDataDto<DepartmentDto> list(String code, String name, Long pn) {
         
+        // Declare result data
+        ListDataDto<DepartmentDto> listDataDto = new ListDataDto<DepartmentDto>();
+
         // Calculating paging
-        // TODO
+        ListPagingDto pagingDto = listDataDto.getPaging();
+        pagingDto.setCurrentPage(pn);
+
+        // Count record
+        Long totalRecords = departmentRepository.selectCount(code, name);
+        pagingDto.setTotalRecords(totalRecords);
+
+        // Check no result data
+        if (totalRecords.intValue() == 0) {
+            return listDataDto;
+        }
 
         // Get list department
-        List<Department> departmentList = departmentRepository.selectList(code, name, 1, 10);
-        
-        // Check deparment list
-        if (CollectionUtils.isEmpty(departmentList)) {
-            return null;
-        }
+        List<Department> departmentList = departmentRepository
+                                        .selectList(code, name, pagingDto.getOffset(), pagingDto.getLimit());
 
         // Cast to department dto
         List<DepartmentDto> departmentDtoList = new ArrayList<>();
@@ -55,8 +66,12 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
             departmentDtoList.add(
                     (DepartmentDto) DataTransformUtil.transform(department, DepartmentDto.class));
         }
+        
+        // Set list into data dto
+        listDataDto.setList(departmentDtoList);
 
-        return departmentDtoList;
+        // Return data
+        return listDataDto;
     }
 
     @Override

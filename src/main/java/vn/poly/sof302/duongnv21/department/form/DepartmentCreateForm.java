@@ -1,5 +1,9 @@
 package vn.poly.sof302.duongnv21.department.form;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Department create form 
  * 
@@ -8,8 +12,12 @@ package vn.poly.sof302.duongnv21.department.form;
  */
 public class DepartmentCreateForm {
 
+    @NotEmpty
+    @Size(max = 5)
     private String code;
-    
+
+    @NotEmpty
+    @Size(max = 255)
     private String name;
 
     public String getCode() {

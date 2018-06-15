@@ -4,6 +4,12 @@
 <html>
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
+<script type="text/javascript">
+function paging(pageNo) {
+    $("#pageNo").val(pageNo);
+    $("#searchForm").submit();
+}
+</script>
 </head>
 <body>
     <%@include file="/WEB-INF/views/common/navigator.jsp"%>
@@ -25,21 +31,25 @@
 
         <!-- BEGIN SEARCH FORM -->
         <div>
-            <form action='<spring:url value="/department"></spring:url>' method="get">
+            <spring:url value="/department" var="listAction"></spring:url>
+            <form:form modelAttribute="departmentSearchForm" method="GET" action="${listAction}" id="searchForm">
+                 <form:hidden path="pn" id="pageNo"/>
                  <div class="row">
                     <div class="form-group col">
                          <label for="exampleInputEmail1">Department code: </label>
-                         <input type="text" class="form-control" id="code" name="code" placeholder="ABC12345">
+                         <form:input path="code" cssClass="form-control" cssErrorClass="is-invalid"/>
+                         <div class="invalid-feedback"><form:errors path="code"/></div>
                      </div>
     
                      <div class="form-group col">
                          <label for="exampleInputEmail1">Department name: </label>
-                         <input type="text" class="form-control" id="name" name="code" placeholder="Acounting">
+                         <form:input path="name" cssClass="form-control"/>
+                         <div class="invalid-feedback"><form:errors path="name"/></div>
                      </div>
                  </div>
 
                  <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+            </form:form>
         </div>
         <!-- END SEARCH FORM -->
 
@@ -51,25 +61,7 @@
                 </div>
                 <div class="col">
                     <div class="pull-right">
-                        <nav aria-label="Page navigation" class="pull-right">
-                          <ul class="pagination">
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
+                        <%@include file="/WEB-INF/views/common/paging.jsp"%>
                     </div>
                 </div>
             </div>

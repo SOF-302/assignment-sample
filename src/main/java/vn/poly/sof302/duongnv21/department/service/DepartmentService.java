@@ -1,8 +1,7 @@
 package vn.poly.sof302.duongnv21.department.service;
 
-import java.util.List;
-
 import vn.poly.sof302.duongnv21.common.bases.BaseServiceInterface;
+import vn.poly.sof302.duongnv21.common.dto.ListDataDto;
 import vn.poly.sof302.duongnv21.department.dto.DepartmentDto;
 
 /**
@@ -22,7 +21,7 @@ public interface DepartmentService extends BaseServiceInterface {
      * 
      * @return List department
      */
-    List<DepartmentDto> list(String code, String name, Long pn);
+    ListDataDto<DepartmentDto> list(String code, String name, Long pn);
 
     /**
      * Create new department

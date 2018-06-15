@@ -1,8 +1,11 @@
 package vn.poly.sof302.duongnv21.department;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,10 +56,12 @@ public class DepartmentCreateController {
      *          Errors: Create input screen
      */
     @PostMapping("/create")
-    public String submit(ModelMap model, DepartmentCreateForm form) {
+    public String submit(ModelMap model,@Valid DepartmentCreateForm form, BindingResult bindingResult) {
 
-        // Validate input parameters
-        // TODO
+        // Return create form
+        if (bindingResult.hasErrors()) {
+            return "department/create";
+        }
 
         // Cast form dto
         DepartmentDto departmentDto = (DepartmentDto) DataTransformUtil.transform(form, DepartmentDto.class);
