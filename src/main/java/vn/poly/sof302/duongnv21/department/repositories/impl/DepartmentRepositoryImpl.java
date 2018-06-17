@@ -71,6 +71,9 @@ public class DepartmentRepositoryImpl extends BaseRepository implements Departme
             queryStb.append(" and name like :name ");
         }
 
+        // Add order conditional
+        queryStb.append(" order by code");
+
         // Build query
         Query query = this.getCurrentSession().createQuery(queryStb.toString());
 

@@ -49,14 +49,14 @@
                  <form:hidden path="pn" id="pageNo"/>
                  <div class="row">
                     <div class="form-group col">
-                         <label for="exampleInputEmail1">Department code: </label>
-                         <form:input path="code" cssClass="form-control" cssErrorClass="is-invalid"/>
+                         <label for="code">Code: </label>
+                         <form:input path="code" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
                          <div class="invalid-feedback"><form:errors path="code"/></div>
                      </div>
     
                      <div class="form-group col">
-                         <label for="exampleInputEmail1">Department name: </label>
-                         <form:input path="name" cssClass="form-control"/>
+                         <label for="name">Name: </label>
+                         <form:input path="name" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
                          <div class="invalid-feedback"><form:errors path="name"/></div>
                      </div>
                  </div>
