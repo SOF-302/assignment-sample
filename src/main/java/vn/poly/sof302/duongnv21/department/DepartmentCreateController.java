@@ -17,7 +17,7 @@ import vn.poly.sof302.duongnv21.department.service.DepartmentService;
 
 /**
  * Create new department
- * 
+ *
  * @author duongnguyen
  */
 @Controller
@@ -36,39 +36,47 @@ public class DepartmentCreateController {
      *=====================================================================================================*/
 
     /**
-     * Show input form
-     * 
-     * @return Create input screen
+     * Show create screen
+     *
+     * @param model     Model map
+     * @param form      Form data
+     * @return Create screen
      */
     @GetMapping("/create")
-    public String input(ModelMap model) {
-        
-        // Initial dempty form
-        model.addAttribute("departmentCreateForm", new DepartmentCreateForm());
+    public String input(ModelMap model, DepartmentCreateForm form) {
 
+        // Return Create screen
         return "department/create";
     }
 
     /**
      * Create new department
-     * 
-     * @return Success: List department screen
+     *
+     * @param model         Model map
+     * @param form          Form data
+     * @param bindingResult Binding result
+     *
+     * @return  Success: List department screen
      *          Errors: Create input screen
      */
     @PostMapping("/create")
-    public String submit(ModelMap model,@Valid DepartmentCreateForm form, BindingResult bindingResult) {
+    public String submit(ModelMap model, @Valid DepartmentCreateForm form, BindingResult bindingResult) {
+
+        // Validate department code
+        // TODO
 
         // Return create form
         if (bindingResult.hasErrors()) {
             return "department/create";
         }
 
-        // Cast form dto
+        // Cast Form to DTO
         DepartmentDto departmentDto = (DepartmentDto) DataTransformUtil.transform(form, DepartmentDto.class);
 
         // Call service to insert new department
         departmentService.create(departmentDto);
 
+        // Return to list screen with success message
         return "redirect:/department";
     }
 }

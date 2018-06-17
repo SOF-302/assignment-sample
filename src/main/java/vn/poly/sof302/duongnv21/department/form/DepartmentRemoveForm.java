@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author duongnguyen
  * @since 1.0.0
  */
-public class DepartmentUpdateForm {
+public class DepartmentRemoveForm {
 
     @NotEmpty
     @Size(min= 5, max = 5)

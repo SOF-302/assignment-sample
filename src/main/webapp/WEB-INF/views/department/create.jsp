@@ -7,36 +7,44 @@
 </head>
 <body>
     <%@include file="/WEB-INF/views/common/navigator.jsp"%>
+    <div class="form-group">&nbsp;</div>
 
     <div class="container">
 
         <h1>Department <small>Create screen</small></h1>
+        <div class="form-group">&nbsp;</div>
 
         <!-- BEGIN CREATE FORM -->
         <div>
-            <spring:url value="/department/create" var="createAction"></spring:url>
-            <form:form action="${createAction}" method="POST" modelAttribute="departmentCreateForm">
+            <spring:url value="/department/create" var="formAction"></spring:url>
+            <form:form action="${formAction}" method="POST" modelAttribute="departmentCreateForm">
 
                 <div class="form-group row">
-                    <label for="code" class="col-sm-2 col-form-label">Code</label>
+                    <label for="code" class="col-sm-2 col-form-label"><strong>Code</strong></label>
                     <div class="col-sm-10">
-                        <c:set var="codeHasError"><form:errors path="code"/></c:set>
-                        <form:input path="code" cssClass="form-control ${not empty codeHasError ? 'is-invalid' : ''}"/>
-                        <div class="invalid-feedback">${codeHasError}</div>
+                        <form:input path="code" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
+                        <div class="invalid-feedback"><form:errors path="code"/></div>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <label for="name" class="col-sm-2 col-form-label"><strong>Name</strong></label>
                     <div class="col-sm-10">
-                        <c:set var="nameHasError"><form:errors path="name"/></c:set>
-                        <form:input path="name" cssClass="form-control ${not empty nameHasError ? 'is-invalid' : ''}"/>
+                        <form:input path="name" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
                         <div class="invalid-feedback"><form:errors path="name"></form:errors></div>
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Submit</button>
+                        <a href="<spring:url value="/department"/>" class="btn btn-warning"><i class="fas fa-angle-left"></i> Back</a>
+                    </div>
+                </div>
 
-                 <button type="submit" class="btn btn-primary">Submit</button>
             </form:form>
+        </div>
         <!-- END CREATE FORM -->
 
     </div>

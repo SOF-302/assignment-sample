@@ -5,14 +5,27 @@
 <head>
 <%@include file="/WEB-INF/views/common/head.jsp"%>
 <script type="text/javascript">
-function paging(pageNo) {
-    $("#pageNo").val(pageNo);
-    $("#searchForm").submit();
-}
+    function paging(pageNo) {
+        $("#pageNo").val(pageNo);
+        $("#searchForm").submit();
+    }
+
+    $(function(){
+
+        // Clear search conditional
+        $('#btnClear').click(function() {
+            $("#pageNo").val('');
+            $("#code").val('');
+            $("#name").val('');
+            $("#searchForm").submit();
+        })
+        
+    })
 </script>
 </head>
 <body>
     <%@include file="/WEB-INF/views/common/navigator.jsp"%>
+    <div class="form-group">&nbsp;</div>
 
     <div class="container">
 
@@ -48,30 +61,37 @@ function paging(pageNo) {
                      </div>
                  </div>
 
-                 <button type="submit" class="btn btn-primary">Search</button>
+                 <button type="submit" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> Search</button>
+                 <button type="reset" class="btn btn-warning" id="btnClear"><i class="fas fa-eraser"></i> Clear</button>
             </form:form>
         </div>
         <!-- END SEARCH FORM -->
+
+        <div class="form-group">&nbsp;</div>
 
         <!-- BEGIN LIST TABLE -->
         <div>
             <div class="row">
                 <div class="col">
-                    <a href="<spring:url value="/department/create"></spring:url>"><i class="fas fa-plus-square"></i>Create</a>
+                    <a href="<spring:url value="/department/create"></spring:url>" class="btn btn-success">
+                        <i class="fas fa-plus-square"></i> Create
+                    </a>
                 </div>
                 <div class="col">
-                    <div class="pull-right">
-                        <%@include file="/WEB-INF/views/common/paging.jsp"%>
+                    <div class="float-right">
+                        <jsp:include page="/WEB-INF/views/common/paging.jsp">
+                            <jsp:param name="paging" value="${paging}" /> 
+                        </jsp:include>
                     </div>
                 </div>
             </div>
-            <table class="table">
-                <thead>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
                     <tr>
                         <th>No.</th>
                         <th>Code</th>
                         <th>Name</th>
-                        <th>Action</th>
+                        <th align="center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +101,7 @@ function paging(pageNo) {
                         <td>${loop.index + 1}</td>
                         <td>${department.code}</td>
                         <td>${department.name}</td>
-                        <td>
+                        <td align="center">
                             <a href="<spring:url value="/department/update/${department.id}"></spring:url>">
                                 <font color="green" size="15"><i class="fas fa-edit"></i></font>
                             </a>
@@ -94,6 +114,20 @@ function paging(pageNo) {
                     </c:if>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col">
+                    <a href="<spring:url value="/department/create"></spring:url>" class="btn btn-success">
+                        <i class="fas fa-plus-square"></i> Create
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="float-right">
+                        <jsp:include page="/WEB-INF/views/common/paging.jsp">
+                            <jsp:param name="paging" value="${paging}" /> 
+                        </jsp:include>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- END LIST TABLE -->
 
