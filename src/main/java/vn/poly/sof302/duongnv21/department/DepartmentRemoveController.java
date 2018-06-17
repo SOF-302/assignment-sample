@@ -72,6 +72,10 @@ public class DepartmentRemoveController {
     public String submit(ModelMap model, @PathVariable Long id,
                                          @Valid DepartmentRemoveForm form, BindingResult bindingResult) {
 
+
+        // Call service to remove department
+        departmentService.remove(id);
+
         // Return list screen
         return "redirect:/department";
     }

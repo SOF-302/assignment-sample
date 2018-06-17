@@ -1,10 +1,8 @@
 package vn.poly.sof302.duongnv21.department.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +17,7 @@ import vn.poly.sof302.duongnv21.department.service.DepartmentService;
 
 /**
  * Deparment service implement
- * 
+ *
  * @author duongnguyen
  * @since 1.0.0
  */
@@ -39,7 +37,7 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 
     @Override
     public ListDataDto<DepartmentDto> list(String code, String name, Long pn) {
-        
+
         // Declare result data
         ListDataDto<DepartmentDto> listDataDto = new ListDataDto<DepartmentDto>();
 
@@ -48,7 +46,7 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
         pagingDto.setCurrentPage(pn);
 
         // Count record
-        Long totalRecords = departmentRepository.selectCount(code, name);
+        Long totalRecords = departmentRepository.count(code, name);
         pagingDto.setTotalRecords(totalRecords);
 
         // Check no result data
@@ -58,7 +56,7 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 
         // Get list department
         List<Department> departmentList = departmentRepository
-                                        .selectList(code, name, pagingDto.getOffset(), pagingDto.getLimit());
+                                        .select(code, name, pagingDto.getOffset(), pagingDto.getLimit());
 
         // Cast to department dto
         List<DepartmentDto> departmentDtoList = new ArrayList<>();
@@ -66,44 +64,72 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
             departmentDtoList.add(
                     (DepartmentDto) DataTransformUtil.transform(department, DepartmentDto.class));
         }
-        
+
         // Set list into data dto
         listDataDto.setList(departmentDtoList);
 
-        // Return data
+        // Return data list
         return listDataDto;
+    }
+
+    @Override
+    public DepartmentDto detail(Long id) {
+
+        // Get data
+        Department department = departmentRepository.select(id);
+
+        // Check existing
+        if (department == null) {
+            throw new RuntimeException("Cannot find entity with id or It was deleted");
+        }
+
+        // Return detail DTO
+        return (DepartmentDto) DataTransformUtil.transform(department, DepartmentDto.class);
     }
 
     @Override
     public Long create(DepartmentDto departmentDto) {
 
         // Create new entity
-        Department entity = (Department) DataTransformUtil.transform(departmentDto, Department.class);
-        entity.setDelFlg(Department.DelFlg.UNDELETED);
-        entity.setInsDate(new Date());
-        entity.setUpdDate(new Date());
+        Department department = (Department) DataTransformUtil.transform(departmentDto, Department.class);
 
-        return departmentRepository.insert(entity);
-    }
-
-    @Override
-    public DepartmentDto detail(Long id) {
-
-        Department department = departmentRepository.selectOne(id);
-
-        return (DepartmentDto) DataTransformUtil.transform(department, DepartmentDto.class);
+        // Return create result
+        return departmentRepository.insert(department);
     }
 
     @Override
     public Long update(DepartmentDto departmentDto) {
 
-        // Create updating entity
-        Department entity = departmentRepository.selectOne(departmentDto.getId());
-        entity.setCode(departmentDto.getCode());
-        entity.setName(departmentDto.getName());
-        entity.setUpdDate(new Date());
+        // Get existed department
+        Department department = departmentRepository.select(departmentDto.getId());
 
-        return departmentRepository.update(entity);
+        // Check existing
+        if (department == null) {
+            throw new RuntimeException("Cannot find entity with id or It was deleted");
+        }
+
+        // Set update data
+        department.setCode(departmentDto.getCode());
+        department.setName(departmentDto.getName());
+
+        // Return update result
+        return departmentRepository.update(department);
+    }
+
+    @Override
+    public Long remove(Long id) {
+
+
+        // Get existed department
+        Department department = departmentRepository.select(id);
+
+        // Check existing
+        if (department == null) {
+            throw new RuntimeException("Cannot find entity with id or It was deleted");
+        }
+
+        // Return remove result
+        return departmentRepository.remove(department);
     }
 
 }

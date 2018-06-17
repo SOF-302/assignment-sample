@@ -1,5 +1,6 @@
 package vn.poly.sof302.duongnv21.department.repositories.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +13,7 @@ import vn.poly.sof302.duongnv21.department.repositories.DepartmentRepository;
 
 /**
  * Department repository
- * 
+ *
  * @author duongnguyen
  * @since 1.0.0
  */
@@ -20,7 +21,7 @@ import vn.poly.sof302.duongnv21.department.repositories.DepartmentRepository;
 public class DepartmentRepositoryImpl extends BaseRepository implements DepartmentRepository {
 
     @Override
-    public Long selectCount(String code, String name) {
+    public Long count(String code, String name) {
 
         // Build query string with default delFlg conditional
         StringBuilder queryStb = new StringBuilder("select count(1) from Department where delFlg = :delFlg");
@@ -56,7 +57,7 @@ public class DepartmentRepositoryImpl extends BaseRepository implements Departme
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Department> selectList(String code, String name, int offset, int limit) {
+    public List<Department> select(String code, String name, int offset, int limit) {
 
         StringBuilder queryStb = new StringBuilder("from Department where delFlg = :delFlg");
 
@@ -92,17 +93,41 @@ public class DepartmentRepositoryImpl extends BaseRepository implements Departme
     }
 
     @Override
-    public Department selectOne(Long id) {
-        return this.getCurrentSession().get(Department.class, id);
+    public Department select(Long id) {
+
+        Department entity =  this.getCurrentSession().get(Department.class, id);
+
+        if (entity.getDelFlg() == Department.DelFlg.UNDELETED) {
+            return entity;
+        }
+
+        return null;
     }
 
     @Override
     public Long insert(Department department) {
+
+        department.setDelFlg(Department.DelFlg.UNDELETED);
+        department.setInsDate(new Date());
+        department.setUpdDate(new Date());
+
         return (Long) super.insert(department);
     }
 
     @Override
     public Long update(Department department) {
+
+        department.setUpdDate(new Date());
+
+        return (Long) super.update(department);
+    }
+
+    @Override
+    public Long remove(Department department) {
+
+        department.setDelFlg(Department.DelFlg.DELETED);
+        department.setUpdDate(new Date());
+
         return (Long) super.update(department);
     }
 }

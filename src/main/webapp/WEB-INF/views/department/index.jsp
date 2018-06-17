@@ -78,11 +78,9 @@
                     </a>
                 </div>
                 <div class="col">
-                    <div class="float-right">
-                        <jsp:include page="/WEB-INF/views/common/paging.jsp">
-                            <jsp:param name="paging" value="${paging}" /> 
-                        </jsp:include>
-                    </div>
+                    <jsp:include page="/WEB-INF/views/common/paging.jsp">
+                        <jsp:param name="paging" value="${paging}" /> 
+                    </jsp:include>
                 </div>
             </div>
             <table class="table table-bordered table-hover">
@@ -121,11 +119,9 @@
                     </a>
                 </div>
                 <div class="col">
-                    <div class="float-right">
-                        <jsp:include page="/WEB-INF/views/common/paging.jsp">
-                            <jsp:param name="paging" value="${paging}" /> 
-                        </jsp:include>
-                    </div>
+                    <jsp:include page="/WEB-INF/views/common/paging.jsp">
+                        <jsp:param name="paging" value="${paging}" /> 
+                    </jsp:include>
                 </div>
             </div>
         </div>
