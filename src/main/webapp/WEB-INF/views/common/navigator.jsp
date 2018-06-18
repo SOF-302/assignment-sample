@@ -15,7 +15,7 @@
                 <a class="nav-link" href="<c:url value="/department"/>">Department</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="<c:url value="/"/>">Employee</a>
+                <a class="nav-link" href="<c:url value="/employee"/>">Employee</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="<c:url value="/"/>">Recording</a>

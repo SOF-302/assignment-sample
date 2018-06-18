@@ -22,6 +22,7 @@
     <!-- Component auto scan -->
     <context:component-scan base-package="vn.poly.sof302.duongnv21.homepage" />
     <context:component-scan base-package="vn.poly.sof302.duongnv21.department" />
+    <context:component-scan base-package="vn.poly.sof302.duongnv21.employee" />
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven>
