@@ -148,10 +148,10 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
     @Override
     public String saveImage(String code, MultipartFile file) {
 
-        String UPLOAD_FILE_SAVE_DIRECTORY = context.getRealPath("/WEB-INF/upload/");
+        String uploadFileSavePath = context.getRealPath("/WEB-INF/upload/");
         String originalFileName = file.getOriginalFilename();
 
-        StringBuilder stbFilePath = new StringBuilder(UPLOAD_FILE_SAVE_DIRECTORY);
+        StringBuilder stbFilePath = new StringBuilder(uploadFileSavePath);
         stbFilePath.append(code);
         stbFilePath.append(originalFileName.substring(originalFileName.lastIndexOf('.')));
 
@@ -163,6 +163,6 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
             logger.error(e.getMessage(), e);
         }
 
-        return stbFilePath.toString().replace(UPLOAD_FILE_SAVE_DIRECTORY, StringUtils.EMPTY);
+        return stbFilePath.toString().replace(uploadFileSavePath, StringUtils.EMPTY);
     }
 }
