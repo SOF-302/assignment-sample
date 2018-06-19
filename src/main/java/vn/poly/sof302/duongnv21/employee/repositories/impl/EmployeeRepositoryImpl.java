@@ -1,5 +1,6 @@
 package vn.poly.sof302.duongnv21.employee.repositories.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -108,6 +109,45 @@ public class EmployeeRepositoryImpl extends BaseRepository implements EmployeeRe
         }
 
         return query.setFirstResult(offset).setMaxResults(limit).list();
+    }
+
+    @Override
+    public Employee select(Long id) {
+
+        Employee entity =  this.getCurrentSession().get(Employee.class, id);
+
+        if (entity.getDelFlg() == Employee.DelFlg.UNDELETED) {
+            return entity;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Long insert(Employee employee) {
+
+        employee.setDelFlg(Employee.DelFlg.UNDELETED);
+        employee.setInsDate(new Date());
+        employee.setUpdDate(new Date());
+
+        return (Long) super.insert(employee);
+    }
+
+    @Override
+    public Long update(Employee employee) {
+
+        employee.setUpdDate(new Date());
+
+        return (Long) super.update(employee);
+    }
+
+    @Override
+    public Long remove(Employee employee) {
+
+        employee.setDelFlg(Employee.DelFlg.DELETED);
+        employee.setUpdDate(new Date());
+
+        return (Long) super.update(employee);
     }
 
 }

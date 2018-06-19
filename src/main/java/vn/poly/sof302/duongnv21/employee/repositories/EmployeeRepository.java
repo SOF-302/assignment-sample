@@ -15,4 +15,12 @@ public interface EmployeeRepository extends BaseRepositoryInterface {
     Long count(Long deparmentId, String code, String name);
 
     List<Employee> select(Long departmentId, String code, String name, int offset, int limit);
+
+    Employee select(Long id);
+
+    Long insert(Employee employee);
+
+    Long update(Employee employee);
+
+    Long remove(Employee employee);
 }

@@ -39,9 +39,14 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="268435456" />
+    </bean>
+
     <!--Config views & resources -->
     <bean id="viewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
     <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/" />
+    <mvc:resources mapping="/upload/**" location="/WEB-INF/upload/" />
 
 </beans>

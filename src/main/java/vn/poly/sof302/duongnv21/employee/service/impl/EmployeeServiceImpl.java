@@ -1,11 +1,16 @@
 package vn.poly.sof302.duongnv21.employee.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.poly.sof302.duongnv21.common.bases.BaseService;
 import vn.poly.sof302.duongnv21.common.dto.ListDataDto;
@@ -37,6 +42,9 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    ServletContext context;
 
     /*=====================================================================================================
      *===== MAPPING METHOD                                                                            =====
@@ -98,5 +106,63 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
 
         // Return data list
         return listDataDto;
+    }
+
+    @Override
+    public EmployeeDto detail(Long id) {
+
+        // Get data
+        Employee employee = employeeRepository.select(id);
+
+        // Check existing
+        if (employee == null) {
+            throw new RuntimeException("Cannot find entity with id or It was deleted");
+        }
+
+        // Return detail DTO
+        return (EmployeeDto) DataTransformUtil.transform(employee, EmployeeDto.class);
+    }
+
+    @Override
+    public Long create(EmployeeDto employeeDto) {
+
+        // Create new entity
+        Employee employee = (Employee) DataTransformUtil.transform(employeeDto, Employee.class);
+
+        // Return create result
+        return employeeRepository.insert(employee);
+    }
+
+    @Override
+    public Long update(EmployeeDto employeeDto) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Long remove(Long id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String saveImage(String code, MultipartFile file) {
+
+        String UPLOAD_FILE_SAVE_DIRECTORY = context.getRealPath("/WEB-INF/upload/");
+        String originalFileName = file.getOriginalFilename();
+
+        StringBuilder stbFilePath = new StringBuilder(UPLOAD_FILE_SAVE_DIRECTORY);
+        stbFilePath.append(code);
+        stbFilePath.append(originalFileName.substring(originalFileName.lastIndexOf('.')));
+
+        File saveFile = new File(stbFilePath.toString());
+        try {
+            logger.info("Save image into: " + stbFilePath.toString());
+            file.transferTo(saveFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return stbFilePath.toString().replace(UPLOAD_FILE_SAVE_DIRECTORY, StringUtils.EMPTY);
     }
 }

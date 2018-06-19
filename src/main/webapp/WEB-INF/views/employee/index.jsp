@@ -111,7 +111,14 @@
                     <c:forEach items="${listEmployees}" var="employee" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td>${employee.photo}</td>
+                        <td align="center">
+                            <c:if test="${not empty employee.photo}">
+                                <img alt="${employee.code}" src="<spring:url value="/upload/${employee.photo}"></spring:url>" width="100px"/>
+                            </c:if>
+                            <c:if test="${empty employee.photo}">
+                                <img alt="${employee.code}" src="<spring:url value="/upload/default-user-image.png"></spring:url>" width="100px"/>
+                            </c:if>
+                        </td>
                         <td>${employee.code}</td>
                         <td>${employee.name}</td>
                         <td>${employee.departmentName}</td>
