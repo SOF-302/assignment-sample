@@ -160,7 +160,7 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
             logger.info("Save image into: " + stbFilePath.toString());
             file.transferTo(saveFile);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         return stbFilePath.toString().replace(UPLOAD_FILE_SAVE_DIRECTORY, StringUtils.EMPTY);
