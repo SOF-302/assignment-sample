@@ -1,15 +1,10 @@
-package vn.poly.sof302.duongnv21.auth;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+package vn.poly.sof302.duongnv21.common.dto;
 
 /**
  * Login user dto
  *
  * @author duongnguyen
  */
-@Component
-@Scope("session")
 public class LoginUserDto {
 
     private String username;

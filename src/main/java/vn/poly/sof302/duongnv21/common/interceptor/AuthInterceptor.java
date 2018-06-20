@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import vn.poly.sof302.duongnv21.auth.LoginUserDto;
+import vn.poly.sof302.duongnv21.common.dto.LoginUserDto;
 
 /**
  * Authenticate interceptor

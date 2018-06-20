@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import vn.poly.sof302.duongnv21.auth.form.LoginForm;
 import vn.poly.sof302.duongnv21.common.bases.BaseController;
+import vn.poly.sof302.duongnv21.common.dto.LoginUserDto;
 
 /**
  * @author duongnguyen
