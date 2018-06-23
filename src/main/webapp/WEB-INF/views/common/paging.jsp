@@ -34,5 +34,5 @@
         </ul>
     </nav>
     </c:if>
-    <div class="float-right p-2"><span>Total: ${paging.totalRecords} items </span></div>
+    <div class="float-right p-2"><span><spring:message code="paging.total" />: ${paging.totalRecords} <span><spring:message code="paging.items" /> </span></div>
 </div>

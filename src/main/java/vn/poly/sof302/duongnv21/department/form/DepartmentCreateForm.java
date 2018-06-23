@@ -12,11 +12,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class DepartmentCreateForm {
 
-    @NotEmpty
+    @NotEmpty(message="{errors.notEmpty}")
     @Size(min= 5, max = 5)
     private String code;
 
-    @NotEmpty
+    @NotEmpty(message="{errors.notEmpty}")
     @Size(max = 255)
     private String name;
 

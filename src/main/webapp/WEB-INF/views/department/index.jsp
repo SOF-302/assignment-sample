@@ -29,17 +29,19 @@
 
     <div class="container">
 
-        <h1>Department <small>List screen</small></h1>
+        <h1><spring:message code="label.department.title"/> <small><spring:message code="label.department.title.list"/></small></h1>
 
         <!-- BEGIN TOP MESSAGE -->
+        <c:if test="${not empty sessionMessageDto}">
         <div>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                 <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                 <spring:message code="${sessionMessageDto.messageCode}" arguments="${sessionMessageDto.messageArgs}" />
                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
             </div>
         </div>
+        </c:if>
         <!-- END TOP MESSAGE -->
 
         <!-- BEGIN SEARCH FORM -->
@@ -49,20 +51,20 @@
                  <form:hidden path="pn" id="pageNo"/>
                  <div class="row">
                     <div class="form-group col">
-                         <label for="code">Code: </label>
+                         <label for="code"><spring:message code="label.department.code"/></label>
                          <form:input path="code" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
                          <div class="invalid-feedback"><form:errors path="code"/></div>
                      </div>
     
                      <div class="form-group col">
-                         <label for="name">Name: </label>
+                         <label for="name"><spring:message code="label.department.name"/></label>
                          <form:input path="name" cssClass="form-control" cssErrorClass="form-control is-invalid"/>
                          <div class="invalid-feedback"><form:errors path="name"/></div>
                      </div>
                  </div>
 
-                 <button type="submit" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> Search</button>
-                 <button type="reset" class="btn btn-warning" id="btnClear"><i class="fas fa-eraser"></i> Clear</button>
+                 <button type="submit" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i> <spring:message code="common.button.search"/></button>
+                 <button type="reset" class="btn btn-warning" id="btnClear"><i class="fas fa-eraser"></i> <spring:message code="common.button.clear"/></button>
             </form:form>
         </div>
         <!-- END SEARCH FORM -->
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col">
                     <a href="<spring:url value="/department/create"></spring:url>" class="btn btn-success">
-                        <i class="fas fa-plus-square"></i> Create
+                        <i class="fas fa-plus-square"></i> <spring:message code="common.button.create"/>
                     </a>
                 </div>
                 <div class="col">
@@ -86,10 +88,10 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-light">
                     <tr>
-                        <th>No.</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th align="center">Action</th>
+                        <th><spring:message code="label.department.no"/></th>
+                        <th><spring:message code="label.department.code"/></th>
+                        <th><spring:message code="label.department.name"/></th>
+                        <th align="center"><spring:message code="label.department.action"/></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,7 +117,7 @@
             <div class="row">
                 <div class="col">
                     <a href="<spring:url value="/department/create"></spring:url>" class="btn btn-success">
-                        <i class="fas fa-plus-square"></i> Create
+                        <i class="fas fa-plus-square"></i> <spring:message code="common.button.create"/>
                     </a>
                 </div>
                 <div class="col">

@@ -132,7 +132,7 @@ public class EmployeeCreateController {
             Matcher matcher = emailPattern .matcher(form.getEmail());
 
             if (!matcher.find()) {
-                bindingResult.rejectValue("email", "email", "Must be an email address");
+                bindingResult.rejectValue("email", "errors.email");
             }
         }
 

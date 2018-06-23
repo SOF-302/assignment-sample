@@ -1,5 +1,6 @@
 package vn.poly.sof302.duongnv21.department;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.poly.sof302.duongnv21.common.dto.SessionMessageDto;
 import vn.poly.sof302.duongnv21.common.utils.DataTransformUtil;
 import vn.poly.sof302.duongnv21.department.dto.DepartmentDto;
 import vn.poly.sof302.duongnv21.department.form.DepartmentCreateForm;
@@ -60,7 +62,8 @@ public class DepartmentCreateController {
      *          Errors: Create input screen
      */
     @PostMapping("/create")
-    public String submit(ModelMap model, @Valid DepartmentCreateForm form, BindingResult bindingResult) {
+    public String submit(ModelMap model, @Valid DepartmentCreateForm form,
+                            BindingResult bindingResult, HttpServletRequest request) {
 
         // Validate department code
         // TODO
@@ -74,7 +77,13 @@ public class DepartmentCreateController {
         DepartmentDto departmentDto = (DepartmentDto) DataTransformUtil.transform(form, DepartmentDto.class);
 
         // Call service to insert new department
-        departmentService.create(departmentDto);
+        Long id = departmentService.create(departmentDto);
+
+        // Add success message into session
+        SessionMessageDto sessionMessageDto = new SessionMessageDto();
+        sessionMessageDto.setMessageCode("message.department.create.success");
+        sessionMessageDto.setMessageArgs(departmentDto.getCode(), departmentDto.getName());
+        request.getSession().setAttribute("DEPARTMENT_MESSAGE", sessionMessageDto);
 
         // Return to list screen with success message
         return "redirect:/department";

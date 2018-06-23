@@ -13,6 +13,8 @@
 package vn.poly.sof302.duongnv21.common.bases;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 
 /**
  * io.cobrafw.iam.common.abstracts -> BaseController
@@ -28,6 +30,9 @@ public class BaseController {
 
     /** Logger */
     protected final Logger logger = Logger.getLogger(this.getClass());
+
+    @Autowired
+    protected MessageSource messageSource;
 
     /*================================================================================================================
      *===== PROTECTED METHOD                                                                                     =====

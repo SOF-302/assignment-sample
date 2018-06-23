@@ -9,9 +9,9 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://soft302-pt12302-ud.cy7fb5wetjzu.us-east-1.rds.amazonaws.com:3306/pt12302_ud?useSSL=false</prop>
-                <prop key="hibernate.connection.username">pt12302_ud</prop>
-                <prop key="hibernate.connection.password">MatKhau123</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/pt12302_ud?useSSL=false</prop>
+                <prop key="hibernate.connection.username">root</prop>
+                <prop key="hibernate.connection.password">admin</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
