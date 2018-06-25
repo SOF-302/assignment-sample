@@ -104,8 +104,13 @@ public class EmployeeCreateController {
             employeeDto.setPhoto(employeeService.saveImage(employeeCreateForm.getCode(), file));
         }
 
-        // Call service to insert new department
+        // Call service to insert new employee
         employeeService.create(employeeDto);
+
+        // Send email
+        if (StringUtils.isNotEmpty(employeeDto.getEmail())) {
+            employeeService.sendEmail(employeeDto.getEmail());
+        }
 
         return "redirect:/employee";
     }

@@ -9,6 +9,8 @@ import javax.servlet.ServletContext;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,6 +47,9 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
 
     @Autowired
     ServletContext context;
+
+    @Autowired
+    private MailSender mailSender;
 
     /*=====================================================================================================
      *===== MAPPING METHOD                                                                            =====
@@ -164,5 +169,18 @@ public class EmployeeServiceImpl extends BaseService implements EmployeeService 
         }
 
         return stbFilePath.toString().replace(uploadFileSavePath, StringUtils.EMPTY);
+    }
+
+    @Override
+    public void sendEmail(String email) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom("duongnv21@fpt.edu.vn");
+        message.setTo(email);
+        message.setSubject("Welcome to SOF302 - PT12302-UD: " + email);
+        message.setText("This is test email");
+        mailSender.send(message);
+
     }
 }

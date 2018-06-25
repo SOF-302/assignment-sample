@@ -29,4 +29,6 @@ public interface EmployeeService extends BaseServiceInterface {
     Long remove(Long id);
 
     String saveImage(String code, MultipartFile file);
+
+    void sendEmail(String email);
 }
